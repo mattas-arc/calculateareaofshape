@@ -1,0 +1,89 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("select")
+                .change(function () {
+                    $("select option:selected").each(function () {
+                        var shapeText = $(this).val();
+                        if (shapeText == "Square") {
+                            $("#divSquare").show();
+                            $("#divRectangle").hide();
+                            $("#divCircle").hide();
+                            $("#divTriangle").hide();
+                        }
+                        else if (shapeText == "Rectangle") {
+                            $("#divSquare").hide();
+                            $("#divRectangle").show();
+                            $("#divCircle").hide();
+                            $("#divTriangle").hide();
+                        }
+                        else if (shapeText == "Circle") {
+                            $("#divSquare").hide();
+                            $("#divRectangle").hide();
+                            $("#divCircle").show();
+                            $("#divTriangle").hide();
+                        }
+                        else if (shapeText == "Triangle") {
+                            $("#divSquare").hide();
+                            $("#divRectangle").hide();
+                            $("#divCircle").hide();
+                            $("#divTriangle").show();
+                        }
+                    });
+
+                })
+                .change();
+        });
+
+    </script>
+}
+
+<div class="text-center">
+    <h1 class="display-4">Calculate Area of the Shape</h1>
+</div>
+<form method="post">
+    <div>
+        <label>Select Shape</label>
+        <select asp-for="SelectedShapeTag" asp-items="Model.TagShapes">
+            <option value="">Choose a Shape</option>
+        </select>
+    </div>
+
+    <div id="divSquare" style="display: none;">
+        <label>Enter Side</label>
+        <input type="text" asp-for="Shape.Side" />
+    </div>
+    <div id="divRectangle" style="display: none;">
+        <label>Enter Length</label>
+        <input type="text" asp-for="Shape.Length" />
+        <label>Enter Width</label>
+        <input type="text" asp-for="Shape.Width" />
+    </div>
+    <div id="divCircle" style="display: none;">
+        <label>Enter Radius</label>
+        <input type="text" asp-for="Shape.Radius" />
+    </div>
+    <div id="divTriangle" style="display: none;">
+        <label>Enter Base</label>
+        <input type="text" asp-for="Shape.Base" />
+        <label>Enter Height</label>
+        <input type="text" asp-for="Shape.Height" />
+    </div>
+    <div>
+        <button role="button" type="submit" name="submit" value="submit">Submit</button>
+    </div>
+</form>
+
+<div>
+    <label>Area of @Model.SelectedShapeTag</label>
+    <input type="text" name="txtArea" asp-for="@Model.AreaOfShape" disabled/>
+</div>
